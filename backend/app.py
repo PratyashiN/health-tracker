@@ -11,6 +11,6 @@ app.register_blueprint(routes_bp)
 
 @app.route("/")
 def home():
-    return "Backend running!"
+    return "Backend running successfully!"
 
-print("APP STARTED SUCCESSFULLY")
+print("✅ APP STARTED")
