@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const API = "https://fabulous-amazement-production.up.railway.app/";
+const API = "https://fabulous-amazement-production.up.railway.app";
 
 function App() {
   const [name, setName] = useState("");
@@ -74,16 +74,21 @@ function App() {
     fetchGoals();
   };
 
+  // 🔥 Group data per person
   const grouped = {};
   data.forEach((item) => {
     if (!grouped[item.name]) grouped[item.name] = 0;
     grouped[item.name] += item.amount;
   });
 
+  // 🔥 Total family intake
+  const totalFamily = data.reduce((sum, item) => sum + item.amount, 0);
+
   return (
     <div style={{ textAlign: "center", padding: "20px" }}>
       <h1>💧 Family Water Tracker</h1>
 
+      {/* INPUTS */}
       <input
         placeholder="Name"
         value={name}
@@ -100,6 +105,7 @@ function App() {
 
       <br /><br />
 
+      {/* GOAL */}
       <input
         placeholder="Set Goal (ml)"
         value={goal}
@@ -107,6 +113,9 @@ function App() {
       />
       <button onClick={setUserGoal}>Set Goal</button>
 
+      <h3>Total Family Intake: {totalFamily} ml</h3>
+
+      {/* PROGRESS */}
       <h2>👨‍👩‍👧 Family Progress</h2>
 
       {Object.keys(grouped).map((person) => {
@@ -115,22 +124,21 @@ function App() {
         const percent = Math.min((total / g) * 100, 100);
 
         return (
-          <div key={person}>
+          <div key={person} style={{ marginBottom: "15px" }}>
             <b>{person}</b>: {total}/{g} ml
-            <div
-              style={{
-                width: "300px",
-                margin: "auto",
-                background: "#ddd",
-              }}
-            >
-              <div
-                style={{
-                  width: `${percent}%`,
-                  background: "green",
-                  color: "white",
-                }}
-              >
+
+            <div style={{
+              width: "300px",
+              margin: "auto",
+              background: "#ddd",
+              borderRadius: "10px",
+              overflow: "hidden"
+            }}>
+              <div style={{
+                width: `${percent}%`,
+                background: "#22c55e",
+                color: "white"
+              }}>
                 {Math.round(percent)}%
               </div>
             </div>
@@ -138,6 +146,7 @@ function App() {
         );
       })}
 
+      {/* ENTRIES */}
       <h2>📋 Entries</h2>
 
       {data.map((item) => (

@@ -80,6 +80,7 @@ def set_goal():
     conn = get_db()
     cursor = conn.cursor()
 
+    # Store goal per person
     cursor.execute(
         "INSERT OR REPLACE INTO goals (name, goal) VALUES (?, ?)",
         (data["name"], data["goal"])
@@ -91,7 +92,6 @@ def set_goal():
     return jsonify({"message": "Goal set"})
 
 
-# 🎯 Get goals
 @routes_bp.route("/get_goals", methods=["GET"])
 def get_goals():
     conn = get_db()
