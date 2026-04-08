@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const API = "https://health-tracker-1-xkb3.onrender.com";
+const API = "https://fabulous-amazement-production.up.railway.app/";
 
 function App() {
   const [name, setName] = useState("");
